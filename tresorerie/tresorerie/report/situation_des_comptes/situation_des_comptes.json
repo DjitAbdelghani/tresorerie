@@ -1,0 +1,45 @@
+{
+ "add_total_row": 1,
+ "columns": [],
+ "creation": "2022-10-02 13:08:11.413470",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [
+  {
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "Du",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "Au",
+   "mandatory": 1,
+   "wildcard_filter": 0
+  }
+ ],
+ "idx": 0,
+ "is_standard": "Yes",
+ "modified": "2022-10-02 14:20:48.416987",
+ "modified_by": "Administrator",
+ "module": "tresorerie",
+ "name": "situation des comptes",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT max(compte)Compte,(client)Client ,sum(recettes)Recettes,sum(depenses)Depenses,sum(montant_comt)Montant,\r\nmax(date)Date,max(type_op)Type,max(reference)Reference,max(note)Note\r\nFROM `tabOperations`\r\nWHERE (DATE(`tabOperations`.`date`) < %(from_date)s ) and type_op != \"BL\"\r\nGROUP BY client\r\nUNION ALL\r\nSELECT (compte)Compte,(client)Client ,(recettes)Recettes,(depenses)Depenses,(montant_comt)Montant,(date)Date,(type_op)Type,(reference)Reference,\r\n(note)Note\r\nFROM `tabOperations`\r\nWHERE (DATE(`tabOperations`.`date`) between %(from_date)s and %(to_date)s) and type_op != \"BL\"",
+ "ref_doctype": "Operations",
+ "report_name": "situation des comptes",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Sales Manager"
+  }
+ ]
+}
